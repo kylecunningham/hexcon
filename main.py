@@ -6,6 +6,7 @@ import function
 class window(wx.Frame):
 	def __init__(self, *args, **kwargs):
 		super(window, self).__init__(*args, **kwargs)
+		self.OnErrorDlg = wx.MessageDialog(self, "Your text is empty!", "error")
 		p = wx.Panel(self)
 		s = wx.BoxSizer(wx.VERTICAL)
 		s1 = wx.BoxSizer(wx.HORIZONTAL)
@@ -27,8 +28,7 @@ class window(wx.Frame):
 	def ConvertTo(self, event):
 		string = self.convertText.GetValue()
 		if string == "":
-			dlg = wx.MessageDialog(self, "Your text is empty!", "error")
-			dlg.ShowModal()
+			self.OnErrorDlg.ShowModal()
 			return
 		hexrep = function.toHex(string)
 		self.convertText.SetValue(hexrep)
@@ -37,8 +37,7 @@ class window(wx.Frame):
 	def ConvertFrom(self, event):
 		hexrep = self.convertText.GetValue()
 		if hexrep == "":
-			dlg = wx.MessageDialog(self, "Your text is empty!", "error")
-			dlg.ShowModal()
+			self.OnErrorDlg.ShowModal()
 			return
 		string = function.toStr(hexrep)
 		self.convertText.SetValue(string)
